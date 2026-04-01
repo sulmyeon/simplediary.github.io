@@ -27,14 +27,69 @@
             --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
             --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --input-bg: #f7fafc;
+            --border-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* 暗色主题 */
+        [data-theme="dark"] {
+            --card-bg: rgba(30, 30, 50, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.3);
+            --bg-color: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            --input-bg: #2d3748;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] body {
+            background: var(--bg-color);
+        }
+
+        [data-theme="dark"] .bg-animation::before {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(240, 147, 251, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
+        }
+
+        [data-theme="dark"] .search-box,
+        [data-theme="dark"] .diary-item,
+        [data-theme="dark"] .mood-btn,
+        [data-theme="dark"] .filter-select,
+        [data-theme="dark"] .quick-tag,
+        [data-theme="dark"] .calendar-nav button,
+        [data-theme="dark"] .modal-close,
+        [data-theme="dark"] .toolbar-btn.secondary,
+        [data-theme="dark"] .clear-filter-btn {
+            background: var(--input-bg);
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .diary-item-preview,
+        [data-theme="dark"] .diary-item-date,
+        [data-theme="dark"] .editor-content::placeholder,
+        [data-theme="dark"] .editor-title::placeholder {
+            color: #718096;
+        }
+
+        [data-theme="dark"] .mood-btn {
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .mood-btn:hover {
+            border-color: #667eea;
         }
 
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: var(--bg-color);
             min-height: 100vh;
             color: var(--text-primary);
             overflow-x: hidden;
+            transition: var(--transition-smooth);
         }
 
         /* 背景动画 */
@@ -1002,24 +1057,214 @@
         }
 
         @media (max-width: 768px) {
+            .app-container {
+                padding: 10px;
+                padding-bottom: 80px;
+            }
+
             .main-layout {
                 grid-template-columns: 1fr;
                 height: auto;
+                gap: 15px;
             }
+
             .sidebar {
                 display: none;
             }
+
             .header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
+                flex-direction: row;
+                padding: 10px 0;
+                margin-bottom: 15px;
             }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 22px;
+            }
+
+            .logo-text h1 {
+                font-size: 20px;
+            }
+
+            .logo-text p {
+                display: none;
+            }
+
+            .header-actions {
+                gap: 10px;
+            }
+
+            .btn-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .main-content {
+                border-radius: 16px;
+            }
+
             .content-header {
+                padding: 15px 20px;
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
             }
+
+            .content-header h2 {
+                font-size: 18px;
+            }
+
             .search-box {
                 width: 100%;
+            }
+
+            .editor-container {
+                padding: 20px;
+            }
+
+            .date-day {
+                font-size: 36px;
+            }
+
+            .mood-selector {
+                gap: 8px;
+            }
+
+            .mood-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .editor-title {
+                font-size: 22px;
+            }
+
+            .editor-toolbar {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .toolbar-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                flex: 1;
+                min-width: 70px;
+                justify-content: center;
+            }
+
+            .diary-list {
+                padding: 15px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                justify-content: space-between;
+            }
+
+            .filter-select {
+                flex: 1;
+                max-width: 150px;
+            }
+
+            .diary-item {
+                padding: 18px;
+            }
+
+            .diary-item-title {
+                font-size: 16px;
+            }
+
+            .diary-item-actions {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+                flex: 1;
+                justify-content: center;
+            }
+
+            /* 手机底部导航 */
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+                padding: 8px 0;
+                backdrop-filter: blur(10px);
+            }
+
+            .mobile-nav-item {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px;
+                cursor: pointer;
+                transition: var(--transition-smooth);
+                border: none;
+                background: none;
+                color: var(--text-secondary);
+                font-size: 12px;
+            }
+
+            .mobile-nav-item.active {
+                color: #667eea;
+            }
+
+            .mobile-nav-item .icon {
+                font-size: 22px;
+            }
+
+            .mobile-nav-item .badge {
+                position: absolute;
+                top: 5px;
+                right: 20%;
+                background: var(--secondary-gradient);
+                color: white;
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-size: 10px;
+                font-weight: 600;
+            }
+
+            .modal-content {
+                margin: 20px;
+                max-height: 85vh;
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+            }
+
+            .modal-footer {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* 桌面端隐藏手机导航 */
+        .mobile-nav {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav {
+                display: flex;
             }
         }
 
@@ -1283,6 +1528,27 @@
         </div>
     </div>
 
+    <!-- 手机底部导航 -->
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-item active" onclick="switchView('write')" data-view="write">
+            <span class="icon">✍️</span>
+            <span>写日记</span>
+        </button>
+        <button class="mobile-nav-item" onclick="switchView('list')" data-view="list">
+            <span class="icon">📚</span>
+            <span>日记</span>
+            <span class="badge" id="mobileDiaryCount">0</span>
+        </button>
+        <button class="mobile-nav-item" onclick="showMobileCalendar()">
+            <span class="icon">📅</span>
+            <span>日历</span>
+        </button>
+        <button class="mobile-nav-item" onclick="showMobileStats()">
+            <span class="icon">📊</span>
+            <span>统计</span>
+        </button>
+    </nav>
+
     <!-- 详情弹窗 -->
     <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -1329,6 +1595,7 @@
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
             initParticles();
             updateDateDisplay();
             renderCalendar();
@@ -1338,6 +1605,144 @@
             renderDiaryList();
             restoreDraft();
         });
+
+        // 主题管理
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            
+            showNotification(newTheme === 'dark' ? '已切换到暗色模式' : '已切换到亮色模式', 'success');
+        }
+
+        function updateThemeIcon(theme) {
+            const themeBtn = document.querySelector('[onclick="toggleTheme()"]');
+            if (themeBtn) {
+                themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+                themeBtn.title = theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式';
+            }
+        }
+
+        // 手机端功能
+        function showMobileCalendar() {
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月`;
+            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            
+            let calendarHtml = '<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 15px;">';
+            const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+            weekdays.forEach(d => {
+                calendarHtml += `<div style="font-size: 12px; color: var(--text-secondary); padding: 8px 0;">${d}</div>`;
+            });
+            
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+            for (let i = 0; i < firstDay; i++) {
+                calendarHtml += '<div></div>';
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateCheck = new Date(today.getFullYear(), today.getMonth(), day);
+                const hasEntry = diaries.some(d => new Date(d.date).toDateString() === dateCheck.toDateString());
+                const isToday = day === today.getDate();
+                
+                calendarHtml += `
+                    <div style="
+                        aspect-ratio: 1; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        border-radius: 8px; 
+                        font-size: 14px;
+                        background: ${isToday ? 'var(--primary-gradient)' : 'var(--input-bg)'};
+                        color: ${isToday ? 'white' : 'var(--text-primary)'};
+                        position: relative;
+                    " onclick="selectDate(${today.getFullYear()}, ${today.getMonth()}, ${day}); closeModal();">
+                        ${day}
+                        ${hasEntry ? '<span style="position: absolute; bottom: 3px; width: 4px; height: 4px; background: #f5576c; border-radius: 50%;"></span>' : ''}
+                    </div>
+                `;
+            }
+            calendarHtml += '</div>';
+            
+            document.getElementById('modalTitle').textContent = '📅 ' + dateStr;
+            document.getElementById('modalDate').textContent = '点击日期写日记';
+            document.getElementById('modalBody').innerHTML = calendarHtml;
+            document.getElementById('modalTags').innerHTML = '';
+            document.querySelector('.modal-footer').innerHTML = `
+                <button class="action-btn" onclick="closeModal()" style="flex: 1; background: var(--input-bg); color: var(--text-secondary);">
+                    关闭
+                </button>
+            `;
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function showMobileStats() {
+            const totalMoods = {};
+            diaries.forEach(d => {
+                if (d.mood) totalMoods[d.mood] = (totalMoods[d.mood] || 0) + 1;
+            });
+            
+            const topMood = Object.entries(totalMoods).sort((a, b) => b[1] - a[1])[0];
+            const topMoodInfo = topMood ? moodMap[topMood[0]] : null;
+            
+            let statsHtml = `
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div style="background: var(--input-bg); padding: 20px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #667eea;">${diaries.length}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">总日记数</div>
+                    </div>
+                    <div style="background: var(--input-bg); padding: 20px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #f5576c;">${calculateStreak()}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">连续天数</div>
+                    </div>
+                    <div style="background: var(--input-bg); padding: 20px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700; color: #48bb78;">${diaries.reduce((sum, d) => sum + d.content.length, 0).toLocaleString()}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">总字数</div>
+                    </div>
+                    <div style="background: var(--input-bg); padding: 20px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: 700;">${topMoodInfo ? topMoodInfo.icon : '📝'}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">最常心情</div>
+                    </div>
+                </div>
+            `;
+            
+            // 心情分布
+            statsHtml += '<h4 style="margin-bottom: 15px; color: var(--text-primary);">心情分布</h4>';
+            const total = Object.values(totalMoods).reduce((a, b) => a + b, 0);
+            Object.entries(totalMoods).sort((a, b) => b[1] - a[1]).forEach(([mood, count]) => {
+                const info = moodMap[mood];
+                const percent = Math.round(count / total * 100);
+                statsHtml += `
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <span style="font-size: 20px;">${info.icon}</span>
+                        <div style="flex: 1; background: var(--input-bg); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${percent}%; height: 100%; background: ${info.color}; border-radius: 4px;"></div>
+                        </div>
+                        <span style="font-size: 13px; color: var(--text-secondary); width: 40px; text-align: right;">${percent}%</span>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('modalTitle').textContent = '📊 统计概览';
+            document.getElementById('modalDate').textContent = '你的日记数据';
+            document.getElementById('modalBody').innerHTML = statsHtml;
+            document.getElementById('modalTags').innerHTML = '';
+            document.querySelector('.modal-footer').innerHTML = `
+                <button class="action-btn" onclick="closeModal()" style="flex: 1; background: var(--input-bg); color: var(--text-secondary);">
+                    关闭
+                </button>
+            `;
+            document.getElementById('detailModal').classList.add('active');
+        }
 
         // 创建浮动粒子
         function initParticles() {
@@ -1563,7 +1968,7 @@
 
         // 切换视图
         function switchView(view) {
-            // 更新导航状态
+            // 更新桌面导航状态
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
@@ -1578,6 +1983,14 @@
                 if (view === 'write' && navItems[0]) navItems[0].classList.add('active');
                 if (view === 'list' && navItems[1]) navItems[1].classList.add('active');
             }
+
+            // 更新手机底部导航状态
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.view === view) {
+                    item.classList.add('active');
+                }
+            });
 
             // 切换内容
             const editorView = document.getElementById('editorView');
@@ -1965,6 +2378,10 @@
             document.getElementById('diaryCount').textContent = diaries.length;
             document.getElementById('totalEntries').textContent = diaries.length;
             
+            // 更新手机端数量
+            const mobileBadge = document.getElementById('mobileDiaryCount');
+            if (mobileBadge) mobileBadge.textContent = diaries.length;
+            
             // 计算连续记录天数
             const streak = calculateStreak();
             document.getElementById('currentStreak').textContent = streak;
@@ -2035,27 +2452,217 @@
             });
         }
 
-        // 导出数据
+        // 导出数据 - 统一为PDF格式
         function exportData() {
-            const dataStr = JSON.stringify(diaries, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `心语日记备份_${new Date().toLocaleDateString()}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            showNotification('数据导出成功！', 'success');
+            exportToPDF();
         }
 
-        // 切换主题
-        function toggleTheme() {
-            showNotification('主题切换功能开发中...', 'info');
+        // 导出为PDF（美观格式）
+        function exportToPDF() {
+            if (diaries.length === 0) {
+                alert('没有日记可以导出');
+                return;
+            }
+
+            // 创建打印窗口
+            const printWindow = window.open('', '_blank');
+            
+            // 生成PDF内容
+            let pdfContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>心语日记 - 导出</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
         }
+        body {
+            font-family: "Noto Sans SC", "Microsoft YaHei", "SimHei", sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        .header h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        .diary-entry {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+        .diary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .diary-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+        .diary-date {
+            font-size: 13px;
+            color: #888;
+        }
+        .diary-mood {
+            font-size: 24px;
+        }
+        .diary-content {
+            font-size: 15px;
+            color: #444;
+            white-space: pre-wrap;
+            margin: 15px 0;
+        }
+        .diary-tags {
+            margin-top: 15px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+        @media print {
+            body { padding: 0; }
+            .diary-entry { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📔 心语日记</h1>
+        <p>导出时间：${formatDateFull(new Date())}</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-value">${diaries.length}</div>
+            <div class="stat-label">篇日记</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">${calculateStreak()}</div>
+            <div class="stat-label">连续天数</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">${diaries.reduce((sum, d) => sum + d.content.length, 0).toLocaleString()}</div>
+            <div class="stat-label">总字数</div>
+        </div>
+    </div>
+`;
+
+            // 按日期排序（最新的在前）
+            const sortedDiaries = [...diaries].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedDiaries.forEach(diary => {
+                const date = new Date(diary.date);
+                const moodInfo = moodMap[diary.mood] || { icon: '📝', name: '未记录' };
+                
+                pdfContent += `
+    <div class="diary-entry">
+        <div class="diary-header">
+            <div>
+                <h2 class="diary-title">${escapeHtml(diary.title)}</h2>
+                <div class="diary-date">${formatDateFull(date)} · ${moodInfo.name}</div>
+            </div>
+            <span class="diary-mood">${moodInfo.icon}</span>
+        </div>
+        <div class="diary-content">${escapeHtml(diary.content)}</div>
+        ${diary.tags.length > 0 ? `
+        <div class="diary-tags">
+            ${diary.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+        </div>
+        ` : ''}
+    </div>
+`;
+            });
+
+            pdfContent += `
+    <div class="footer">
+        <p>由 心语日记 生成 · 记录生活的美好</p>
+    </div>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        };
+    <\/script>
+</body>
+</html>`;
+
+            printWindow.document.write(pdfContent);
+            printWindow.document.close();
+            
+            showNotification('PDF导出窗口已打开，请使用浏览器的打印功能保存为PDF', 'success');
+        }
+
+        // 格式化日期用于文件名
+        function formatDateForFile(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${year}${month}${day}_${hours}${minutes}`;
+        }
+
+
 
         // 显示设置
         function showSettings() {
